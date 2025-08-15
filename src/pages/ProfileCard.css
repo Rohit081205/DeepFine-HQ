@@ -1,30 +1,97 @@
+.firefly-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.firefly {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #ff8888 40%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: moveFirefly 10s infinite ease-in-out;
+}
+
+@keyframes moveFirefly {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate(50px, -60px) scale(1.2);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-40px, 40px) scale(0.9);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(60px, 30px) scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+}
+
 .profile-card {
+  position: relative;
   display: flex;
   align-items: center;
-  padding: 2rem 3rem;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(1rem, 3vw, 2rem);
   border-radius: 20px;
-  background-color: #fff0f0;
-  box-shadow: 0 0 20px rgba(255, 100, 100, 0.3);
+  background: linear-gradient(
+    270deg,
+    #ffefef,
+    #ffe0e0,
+    #ffd1d1,
+    #ffe0e0,
+    #ffefef
+  );
+  background-size: 400% 400%;
+  animation: gradientMove 6s ease infinite;
+  box-shadow: 0 4px 20px rgba(255, 100, 100, 0.2);
   max-width: 750px;
   margin: 2rem auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-decoration: none; 
-  color: #111; 
+  text-decoration: none;
+  color: #111;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .profile-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 30px rgba(255, 100, 100, 0.5);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(255, 100, 100, 0.5);
 }
 
 .logo-container {
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: clamp(100px, 25vw, 200px);
+  height: clamp(100px, 25vw, 200px);
+  border-radius: 50%;
+  background: #fff;
+  padding: 5px;
+  box-shadow: 0 0 15px rgba(255, 100, 100, 0.2);
 }
 
 .profile-logo {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -33,30 +100,41 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 3rem; 
+  text-align: left;
+  min-width: 200px;
 }
 
 .profile-name {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: bold;
   color: #000;
   margin-bottom: 0.2rem;
 }
 
 .profile-stats {
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 3vw, 2rem);
   font-weight: bold;
   color: #444;
 }
 
 [data-theme="dark"] .profile-card {
-  background-color: #2a1a1a;
-  box-shadow: 0 0 20px rgba(255, 100, 100, 0.6);
+  background: linear-gradient(
+    270deg,
+    #2a1a1a,
+    #3a2222,
+    #4a2a2a,
+    #3a2222,
+    #2a1a1a
+  );
+  background-size: 400% 400%;
+  animation: gradientMove 6s ease infinite;
+  box-shadow: 0 0 20px rgba(255, 100, 100, 0.4);
   color: #eee;
 }
 
-[data-theme="dark"] .profile-card:hover {
-  box-shadow: 0 0 30px rgba(255, 100, 100, 0.8);
+[data-theme="dark"] .logo-container {
+  background: #2a1a1a;
+  box-shadow: 0 0 15px rgba(255, 100, 100, 0.3);
 }
 
 [data-theme="dark"] .profile-name {
@@ -65,4 +143,31 @@
 
 [data-theme="dark"] .profile-stats {
   color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .profile-info {
+    text-align: center;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 1rem;
+  }
+
+  .profile-name {
+    font-size: 1.4rem;
+  }
+
+  .profile-stats {
+    font-size: 1.1rem;
+  }
 }
